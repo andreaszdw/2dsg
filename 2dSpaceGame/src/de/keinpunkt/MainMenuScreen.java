@@ -39,7 +39,9 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-	}
+		camera.setToOrtho(false, width, height);
+		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
+	}	
 
 	@Override
 	public void show() {

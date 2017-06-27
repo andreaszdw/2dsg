@@ -43,6 +43,7 @@ public class GameScreen implements Screen {
 
 		// create the camera and the SpriteBatch
 		camera = new OrthographicCamera();
+		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		camera.setToOrtho(false, 800, 480);
 
 		// create a Rectangle to logically represent the bucket
@@ -136,6 +137,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
+		camera.setToOrtho(false, width, height);
 	}
 
 	@Override
