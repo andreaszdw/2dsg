@@ -4,7 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 
 public class DesktopGame {
 	public static void main (String[] args) {
-		new LwjglApplication(new GameMain(), "2dSpaceGame", 800, 600);
+		new LwjglApplication(new GameMain(), "2d-Space-Game", 800, 600);
 	}
 
 }
