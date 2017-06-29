@@ -16,7 +16,6 @@ public class GameScreen implements Screen, InputProcessor {
 
 		// create the camera and the SpriteBatch
 		camera = new OrthographicCamera();
-		System.out.println(Gdx.graphics.getWidth() + " " + Gdx.graphics.getHeight());
 		camera.setToOrtho(false, 800, 480);
 		
 		// Inputprocessor
