@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.Input.Keys;
 
 public class GameScreen implements Screen, InputProcessor {
   	final GameMain game;
@@ -87,9 +88,10 @@ public class GameScreen implements Screen, InputProcessor {
 	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
 		return true;
 	}
-			
+	
 	@Override 
 	public boolean keyDown (int keycode) {
+		System.out.println("KeyDown: " + Keys.toString(keycode));
 		return false;
 	}
 	
