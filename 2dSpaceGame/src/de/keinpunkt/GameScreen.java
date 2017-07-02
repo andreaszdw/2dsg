@@ -92,6 +92,14 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override 
 	public boolean keyDown (int keycode) {
 		System.out.println("KeyDown: " + Keys.toString(keycode));
+		
+		/*if (Keys.toString(keycode) == "+") {
+			System.out.println("+");
+		}
+		
+		if  (Keys.toString(keycode) == "-") {
+			System.out.println("-");
+		}*/
 		return false;
 	}
 	
@@ -102,6 +110,8 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	@Override 
 	public boolean keyTyped (char character) {
+
+		System.out.println("KeyTyped: " + character);
 		return false;
 	}
 	
