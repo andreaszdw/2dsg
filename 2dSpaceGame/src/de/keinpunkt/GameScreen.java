@@ -1,16 +1,21 @@
 package de.keinpunkt;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.Input.Keys;
 
 public class GameScreen implements Screen, InputProcessor {
   	final GameMain game;
 
 	OrthographicCamera camera;
+	
+	int gameWidth;
+	int gameHeight;
+	float centerX;
+	float centerY;
 
 	public GameScreen(final GameMain gam) {
 		this.game = gam;
@@ -40,11 +45,18 @@ public class GameScreen implements Screen, InputProcessor {
 		game.batch.setProjectionMatrix(camera.combined);
 
 		game.batch.begin();
+		game.font.draw(game.batch, "Center", this.centerX, this.centerY);
 		game.batch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		this.gameWidth = width;
+		this.gameHeight = height;
+		
+		this.centerX = (gameWidth/2) *camera.zoom;
+		this.centerY = (gameHeight/2) *camera.zoom;
+		
 		camera.setToOrtho(false, width, height);
 	}
 
@@ -91,16 +103,35 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	@Override 
 	public boolean keyDown (int keycode) {
-		System.out.println("KeyDown: " + Keys.toString(keycode));
 		
-		/*if (Keys.toString(keycode) == "+") {
-			System.out.println("+");
+		if (keycode == Input.Keys.PLUS) {
+			System.out.println("Plus");
+			camera.zoom += 0.02;
 		}
 		
-		if  (Keys.toString(keycode) == "-") {
-			System.out.println("-");
-		}*/
-		return false;
+		
+		if (keycode == Input.Keys.MINUS) {
+			System.out.println("Minus");
+			camera.zoom -= 0.02;
+		}
+		
+		if (keycode == Input.Keys.W) {
+			System.out.println("W");
+		}
+		
+		if (keycode == Input.Keys.S) {
+			System.out.println("S");
+		}
+		
+		if (keycode == Input.Keys.A) {
+			System.out.println("A");
+		}
+		
+		if (keycode == Input.Keys.D) {
+			System.out.println("D");
+		}
+		
+		return true;
 	}
 	
 	@Override 
@@ -110,8 +141,6 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	@Override 
 	public boolean keyTyped (char character) {
-
-		System.out.println("KeyTyped: " + character);
 		return false;
 	}
 	
