@@ -16,9 +16,12 @@ public class GameScreen implements Screen, InputProcessor {
 	int gameHeight;
 	float centerX;
 	float centerY;
+	double zoom;
 
 	public GameScreen(final GameMain gam) {
 		this.game = gam;
+		
+		zoom = 0.0;
 
 		// create the camera and the SpriteBatch
 		camera = new OrthographicCamera();
@@ -36,6 +39,8 @@ public class GameScreen implements Screen, InputProcessor {
 		// of the color to be used to clear the screen.
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		camera.zoom += zoom;
 
 		// tell the camera to update its matrices.
 		camera.update();
@@ -106,13 +111,13 @@ public class GameScreen implements Screen, InputProcessor {
 		
 		if (keycode == Input.Keys.PLUS) {
 			System.out.println("Plus");
-			camera.zoom += 0.02;
+			zoom = 0.02;
 		}
 		
 		
 		if (keycode == Input.Keys.MINUS) {
 			System.out.println("Minus");
-			camera.zoom -= 0.02;
+			zoom = -0.02;
 		}
 		
 		if (keycode == Input.Keys.W) {
@@ -136,7 +141,19 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	@Override 
 	public boolean keyUp (int keycode) {
-		return false;
+		
+		if (keycode == Input.Keys.PLUS) {
+			System.out.println("Plus");
+			zoom = 0;
+		}
+		
+		
+		if (keycode == Input.Keys.MINUS) {
+			System.out.println("Minus");
+			zoom = 0;
+		}
+		
+		return true;
 	}
 	
 	@Override 
