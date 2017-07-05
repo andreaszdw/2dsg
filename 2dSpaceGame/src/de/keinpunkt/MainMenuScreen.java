@@ -4,15 +4,60 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+
 
 public class MainMenuScreen implements Screen {
-        final GameMain game;
+	
+	final GameMain game;
         
 	OrthographicCamera camera;
+	
+	SpriteBatch batch;
+	Stage stage;
+	TextButton button;
+	TextButtonStyle style;
+	Skin buttonSkin;
+	BitmapFont font;
 
 	public MainMenuScreen(final GameMain gam) {
 		game = gam;
-
+		
+		batch = new SpriteBatch();
+		
+		stage = new Stage();
+		stage.clear();
+		Gdx.input.setInputProcessor(stage);
+		font = new BitmapFont();
+		
+		buttonSkin = new Skin();
+		
+		style = new TextButtonStyle();
+		style.font = font;
+		
+		button = new TextButton("Drück mich", style); 
+		button.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        button.setHeight(100);
+        button.setWidth(100);
+        button.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    Gdx.app.log("my app", "Pressed"); //** Usually used to start Game, etc. **//
+                    return true;
+            } 
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
+        
+       stage.addActor(button);
+		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 600);
 
@@ -22,13 +67,15 @@ public class MainMenuScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		
+		stage.act();
 		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
+		batch.setProjectionMatrix(camera.combined);
 
-		game.batch.begin();
-		game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
-		game.batch.end();
+		batch.begin();
+		game.font.draw(batch, "Tap anywhere to begin!", 100, 100);
+		stage.draw();
+		batch.end();
 
 		if (Gdx.input.isTouched()) {
 			game.setScreen(new GameScreen(game));
@@ -59,5 +106,6 @@ public class MainMenuScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		batch.dispose();
 	}
 }
