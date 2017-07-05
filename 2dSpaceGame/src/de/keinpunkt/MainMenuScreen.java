@@ -44,8 +44,8 @@ public class MainMenuScreen implements Screen {
 		
 		button = new TextButton("Push", skin); 
 		button.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
-        button.setHeight(100);
-        button.setWidth(100);
+        //button.setHeight(100);
+        //button.setWidth(100);
         button.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                     Gdx.app.log("my app", "Pressed"); //** Usually used to start Game, etc. **//
