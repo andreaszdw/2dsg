@@ -24,7 +24,7 @@ public class MainMenuScreen implements Screen {
 	Stage stage;
 	TextButton button;
 	TextButtonStyle style;
-	Skin buttonSkin;
+	Skin skin;
 	BitmapFont font;
 
 	public MainMenuScreen(final GameMain gam) {
@@ -37,12 +37,12 @@ public class MainMenuScreen implements Screen {
 		Gdx.input.setInputProcessor(stage);
 		font = new BitmapFont();
 		
-		buttonSkin = new Skin();
+		skin = new Skin(Gdx.files.internal("assets/shadeui/uiskin.json")); //new Skin();
 		
-		style = new TextButtonStyle();
-		style.font = font;
+		//style = new TextButtonStyle();
+		//style.font = font;
 		
-		button = new TextButton("Drück mich", style); 
+		button = new TextButton("Push", skin); 
 		button.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         button.setHeight(100);
         button.setWidth(100);
@@ -53,6 +53,8 @@ public class MainMenuScreen implements Screen {
             } 
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+    			//game.setScreen(new GameScreen(game));
+    			//dispose();
             }
         });
         
@@ -73,14 +75,14 @@ public class MainMenuScreen implements Screen {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		game.font.draw(batch, "Tap anywhere to begin!", 100, 100);
+		//game.font.draw(batch, "Tap anywhere to begin!", 100, 100);
 		stage.draw();
 		batch.end();
 
-		if (Gdx.input.isTouched()) {
+		/*if (Gdx.input.isTouched()) {
 			game.setScreen(new GameScreen(game));
 			dispose();
-		}
+		}*/
 	}
 
 	@Override
