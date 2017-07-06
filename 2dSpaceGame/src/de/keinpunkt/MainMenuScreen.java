@@ -12,6 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.kotcrab.vis.ui.VisUI;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 
 public class MainMenuScreen implements Screen {
@@ -32,8 +38,15 @@ public class MainMenuScreen implements Screen {
 		
 		batch = new SpriteBatch();
 		
-		stage = new Stage();
-		stage.clear();
+		VisUI.load(new Skin(Gdx.files.internal("assets/neutralizer/neutralizer-ui.json")));
+        stage = new Stage(new ScreenViewport());
+        
+        VisTable root = new VisTable();
+        root.setFillParent(true);
+        stage.addActor(root);
+		
+		//stage = new Stage();
+		//stage.clear();
 		Gdx.input.setInputProcessor(stage);
 		font = new BitmapFont();
 		
@@ -42,13 +55,13 @@ public class MainMenuScreen implements Screen {
 		//style = new TextButtonStyle();
 		//style.font = font;
 		
-		button = new TextButton("Push", skin); 
+		/*button = new TextButton("Push", skin); 
 		button.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         //button.setHeight(100);
         //button.setWidth(100);
         button.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                    Gdx.app.log("my app", "Pressed"); //** Usually used to start Game, etc. **//
+                    Gdx.app.log("my app", "Pressed"); 
                     return true;
             } 
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -56,9 +69,22 @@ public class MainMenuScreen implements Screen {
     			//game.setScreen(new GameScreen(game));
     			//dispose();
             }
-        });
+        });*/
         
-       stage.addActor(button);
+        //stage.addActor(button);
+		
+		VisTextButton textButton = new VisTextButton("INITIATE");
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeListener.ChangeEvent event, Actor actor) {
+            	
+            	System.out.println("pushed ");
+            }
+        });
+		
+		root.row();
+		root.add(textButton);
+		
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 600);
