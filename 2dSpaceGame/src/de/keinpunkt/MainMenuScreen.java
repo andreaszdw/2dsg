@@ -88,6 +88,10 @@ public class MainMenuScreen implements Screen {
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 600);
+		
+		//System.getProperty("user.home");
+		String currentUsersHomeDir = System.getProperty("user.home");
+		System.out.println(currentUsersHomeDir);
 
 	}
 
