@@ -4,20 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kotcrab.vis.ui.VisUI;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 
 public class MainMenuScreen implements Screen {
@@ -32,6 +33,11 @@ public class MainMenuScreen implements Screen {
 	TextButtonStyle style;
 	Skin skin;
 	BitmapFont font;
+    String vertexShader;
+    String fragmentShader;
+    ShaderProgram shaderProgram;
+    Texture texture;
+    Sprite sprite;
 
 	public MainMenuScreen(final GameMain gam) {
 		game = gam;
@@ -92,6 +98,12 @@ public class MainMenuScreen implements Screen {
 		//System.getProperty("user.home");
 		String currentUsersHomeDir = System.getProperty("user.home");
 		System.out.println(currentUsersHomeDir);
+		
+        vertexShader = Gdx.files.internal("assets/shader/vertex.glsl").readString();
+        fragmentShader = Gdx.files.internal("assets/shader/fragment.glsl").readString();
+        shaderProgram = new ShaderProgram(vertexShader,fragmentShader);
+        texture = new Texture("assets/image/bucket.png");
+        sprite = new Sprite(texture);
 
 	}
 
@@ -106,7 +118,9 @@ public class MainMenuScreen implements Screen {
 
 		batch.begin();
 		//game.font.draw(batch, "Tap anywhere to begin!", 100, 100);
-		stage.draw();
+        batch.setShader(shaderProgram);
+        batch.draw(sprite, 400, 400);
+		//stage.draw();
 		batch.end();
 
 		/*if (Gdx.input.isTouched()) {
